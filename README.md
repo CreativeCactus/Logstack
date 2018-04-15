@@ -26,4 +26,6 @@ NOTE: If elasticsearch fails to start and `docker logs elasticsearch` gives `max
 
 	sudo sysctl -w vm.max_map_count=262144
 
-Grafana: http://127.0.0.1:8000/
+Grafana: http://127.0.0.1:3000/
+
+Log in with admin:admin.
