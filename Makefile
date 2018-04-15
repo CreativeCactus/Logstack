@@ -4,7 +4,10 @@
 ## Built as FOSS alternative to Splunk, on elasticsearch, kibana/grafana and fluentd.
 
 start-kibana:
-	docker run -d -p 9200:9200 -p 5601:5601 nshou/elasticsearch-kibana
+	docker run -d -p 9200:9200 -p 5601:5601 --name kibana-es nshou/elasticsearch-kibana
+
+start-es:
+	docker rm -f elasticsearch ; docker run -d -p 9200:9200 --name elasticsearch docker.elastic.co/elasticsearch/elasticsearch:6.2.3
 
 start-grafana:
 	docker rm -f grafana grafana-storage || true

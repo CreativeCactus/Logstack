@@ -21,3 +21,8 @@ Kibana: http://127.0.0.1:5601/
 
 	make start-grafana start-es start-fluent
 	docker logs -f fluent
+
+NOTE: If elasticsearch fails to start and `docker logs elasticsearch` gives `max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]`, then do the following:
+
+	sudo sysctl -w vm.max_map_count=262144
+
