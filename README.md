@@ -26,6 +26,14 @@ NOTE: If elasticsearch fails to start and `docker logs elasticsearch` gives `max
 
 	sudo sysctl -w vm.max_map_count=262144
 
-Grafana: http://127.0.0.1:3000/
+Elasticsearch: http://127.0.0.1:9200/fluentd
+
+Grafana: http://127.0.0.1:3000/datasources/new?gettingstarted
 
 Log in with admin:admin.
+
+To get started, create an elasticsearch data source with `http://elasticsearch:9200`, access: proxy, index name: fluentd, Time field name: created, Version: 5.6+.
+
+Note that this field will not exist unless data is present. Use `make test-log test-dlog` to try that.
+
+If all goes well, go to `+ -> Create Dashboard -> Graph` and leave most things as default. You should end up with a graph of events over time.
