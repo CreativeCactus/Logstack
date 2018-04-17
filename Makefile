@@ -25,3 +25,6 @@ test-many:
 
 test-dlog:
 	docker run --log-driver=fluentd busybox /bin/echo 'Hello world'
+
+test-dmany:
+	docker run --log-driver=fluentd --log-opt fluentd-tag=docker.test --log-opt fluentd-address=localhost:24224 busybox /bin/sh -c 'for i in 1 2 3 4 5 ; do echo "Hello $${i}" ; done'

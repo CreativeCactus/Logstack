@@ -37,3 +37,21 @@ To get started, create an elasticsearch data source with `http://elasticsearch:9
 Note that this field will not exist unless data is present. Use `make test-log test-dlog` to try that.
 
 If all goes well, go to `+ -> Create Dashboard -> Graph` and leave most things as default. You should end up with a graph of events over time.
+
+## Grafana with rasPi
+
+Then, you can access your Grafana dashboards for presentation on a rasPi using the following steps: http://docs.grafana.org/guides/whats-new-in-v2/#server-side-panel-rendering
+
+Here is an example of a simple script for presenting these individual panels over ssh. Note that timeout and pull loops should be synchronised to avoid skipping graphs that fail to load due to being writting to.
+
+Note basic auth and warning about having at least 3 images BEFORE running fbi, as it will not detect files CREATED after running.
+
+```
+echo "Note that FBI with <3 images will cache regardless, and should be rebooted from the loop. Use symlinks to display a single updating image"
+sudo killall fbi ; sudo fbi -a -v -T 2 -t 5 -noverbose -cachemem 0 ./dash/*.png &
+while true; do
+        curl "http://admin:pass@192.168.103.108:3000/render/d-solo/kVNOyvWik/dash?orgId=1&panelId=2&width=1000&height=500&tz=UTC%2B10%3A00" > dash/list.png
+        curl "http://admin:pass@192.168.103.108:3000/render/d-solo/kVNOyvWik/dash?orgId=1&panelId=4&width=1000&height=500&tz=UTC%2B10%3A00" > dash/mppdf.png
+        sleep 10
+done
+```
